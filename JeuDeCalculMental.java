@@ -1,6 +1,8 @@
 import extensions.CSVFile;
 import extensions.Image;
 import extensions.RGBColor;
+
+
 class JeuDeCalculMental extends Program {
     boolean finished = false;
 

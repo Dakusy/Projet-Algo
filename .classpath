@@ -2,6 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path=""/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/thoma_000/Desktop/jar/ap.jar"/>
+=======
+	<classpathentry kind="lib" path="ap.jar"/>
+>>>>>>> c667b4865863ce78ac7aa4810584788c48824f88
 	<classpathentry kind="output" path=""/>
 </classpath>
