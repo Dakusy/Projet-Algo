@@ -9,7 +9,7 @@ class JeuDeCalculMental extends Program {
     int operande1=operande();
     int operande2=operande();
 
-    //Calcul les diff√©rentes op√©randes.
+    //Calcul les diffÈrents opÈrandes.
     int operande(){
 	int nombre=(int)(random()*100);
 	return nombre;
@@ -28,13 +28,36 @@ class JeuDeCalculMental extends Program {
 	return tab;
     }
 
-    //Test l'Affichage des op√©randes.
-    void testAffichage(){
-	assertEquals("2 + 5", affichage(2,5));
+    //Test l'Affichage des additions.
+    void testAffichageAdd(){
+	assertEquals("2 + 5", affichageAdd(2,5));
     }
-    //Affiche les op√©randes dans le jeu.
-    String affichage(int operande1, int operande2){
+    
+    //Affiche les additions dans le jeu.
+    String affichageAdd(int operande1, int operande2){
 	String res=operande1 + " + " + operande2;
+	return res;
+    }
+    
+    //Test l'Affichage des soustractions.
+    void testAffichageSou(){
+	assertEquals("2 - 5", affichageSou(2,5));
+    }
+    
+    //Affiche les soustractions dans le jeu.
+    String affichageSou(int operande1, int operande2){
+	String res=operande1 + " - " + operande2;
+	return res;
+    }
+    
+    //Test l'Affichage des multiplications.
+    void testAffichageMul(){
+	assertEquals("2 * 5", affichageMul(2,5));
+    }
+    
+    //Affiche les multiplications dans le jeu.
+    String affichageMul(int operande1, int operande2){
+	String res=operande1 + " * " + operande2;
 	return res;
     }
 
@@ -47,7 +70,8 @@ class JeuDeCalculMental extends Program {
 	};
 	assertEquals(" 1 2 3\n 4 5 6\n 7 8 9\n",affichageTableau(tab));
     }
-     //Affiche le tableau en cha√Æne de caract√®re.
+    
+     //Affiche le tableau en chaÓne de caractËre.
     String affichageTableau(int[][] tab){
 	String res="";
 	for(int i=0; i<length(tab,1); i++){
@@ -58,6 +82,7 @@ class JeuDeCalculMental extends Program {
 	}
 	return res;
     }
+    
     //Test la fonction saisie
    void testSaisie(){
 	int[][] tab = new int[][]{
@@ -69,7 +94,8 @@ class JeuDeCalculMental extends Program {
 	assertTrue(saisie(2,0,tab));
 	assertFalse(saisie(3,4,tab));
     }
-    //V√©rifie que la saisie des coordonn√©es soit dans le tableau.
+   
+    //VÈrifie que la saisie des coordonnÈes soit dans le tableau.
     boolean saisie(int a, int b, int[][] tab){
 	boolean res=false;
 	if(a<=length(tab,1) && b<=length(tab,2)){
@@ -77,6 +103,7 @@ class JeuDeCalculMental extends Program {
 	}
 	return res;
     }
+    
     //Test la fonction bonneReponse.
        void testBonneReponse(){
 	int[][] tab = new int[][]{
@@ -86,7 +113,8 @@ class JeuDeCalculMental extends Program {
 	};
 	assertEquals(true, bonneReponse(1,2,tab,50,26));
     }
-    //V√©rifie que l'entier s√©lectionner dans le tableau soit le r√©sultat des 2 op√©randes.
+       
+    //VÈrifie que l'entier sÈlectionner dans le tableau soit le rÈsultat des 2 op√©randes.
     boolean bonneReponse(int l, int c, int[][] tab, int operande1, int operande2){
 	boolean res=false;
 	if(tab[l][c]==operande1+operande2){
@@ -115,26 +143,32 @@ class JeuDeCalculMental extends Program {
 	    }*/
 
 	
-
-    
-    
     //Execute les fonctions pour donner le jeu.
     void algorithm(){
 	int[][] plateau=initialiser();
-	int tours=0;
-	println();
-	println("Combien font: " + affichage(operande1, operande2));
-	println();
-	println(affichageTableau(plateau));
-	println("Veuillez saisir un indice de ligne: ");
-	int l=readInt();
-	println("Veuillez saisir un indice de colonne: ");
-	int c=readInt();
-	while(saisie(l,c,plateau)!=true){
-	    println("Veuillez saisir un indice de ligne correct: ");
-	    l=readInt();
-	    println("Veuillez saisir un indice de colonne correct: ");
-	    c=readInt();
-	}
+	for (int tours=0; tours<=5; tours++) {
+		println(); //Saut d'une ligne.	
+		println("Combien font: " + affichageAdd(operande1, operande2));
+		println();
+		println(affichageTableau(plateau));
+		println("Veuillez saisir un indice de ligne: ");
+		int l=readInt();
+		println("Veuillez saisir un indice de colonne: ");
+		int c=readInt();
+		while(saisie(l,c,plateau)!=true){
+		    println("Veuillez saisir un indice de ligne correct: ");
+		    l=readInt();
+		    println("Veuillez saisir un indice de colonne correct: ");
+		    c=readInt();
+		}
+		if(bonneReponse(l, c, plateau, operande1, operande2)==true) {
+			println();
+			println("Bravo, tu as trouvÈ le bon rÈsultat :) ");
+		}
+		else {
+			println();
+			println("Dommage, ce n'est pas le non rÈsultat :( ");
+			}
+		}
     }
 }
