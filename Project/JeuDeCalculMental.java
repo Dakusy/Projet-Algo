@@ -5,15 +5,20 @@ import extensions.RGBColor;
 
 class JeuDeCalculMental extends Program {
     
-    //Calcul les differents operandes.
+    //Choisit les differents operandes.
     int operande(){
 	int nombre=(int)(random()*25);
 	return nombre;
     }
+
+    //Choisit les differents operandes pour les multiplications.
+    int operandeMul(){
+	int nombre=(int)(random()*10);
+	return nombre;
+    }
     
-    
-    //Fonction permettant d'initialiser le jeu. 
-    int[][] initialiser(int operande1, int operande2){
+    //Fonction permettant d'initialiser le jeu pour les additions. 
+    int[][] initialiserAdd(int operande1, int operande2){
 	int[][] tab=new int[3][3];
 	for(int i=0; i<length(tab,1); i++){
 	    for(int j=0; j<length(tab,2); j++){
@@ -21,6 +26,30 @@ class JeuDeCalculMental extends Program {
 	    }
 	}
 	tab[(int)(random()*length(tab,1))][(int)(random()*length(tab,2))]=operande1 + operande2;
+	return tab;
+    }
+
+    //Fonction permettant d'initialiser le jeu pour les soustractions. 
+    int[][] initialiserSou(int operande1, int operande2){
+	int[][] tab=new int[3][3];
+	for(int i=0; i<length(tab,1); i++){
+	    for(int j=0; j<length(tab,2); j++){
+		tab[i][j]=operande();
+	    }
+	}
+	tab[(int)(random()*length(tab,1))][(int)(random()*length(tab,2))]=operande1 - operande2;
+	return tab;
+    }
+
+    //Fonction permettant d'initialiser le jeu pour les multiplications. 
+    int[][] initialiserMul(int operande1, int operande2){
+	int[][] tab=new int[3][3];
+	for(int i=0; i<length(tab,1); i++){
+	    for(int j=0; j<length(tab,2); j++){
+		tab[i][j]=operandeMul();
+	    }
+	}
+	tab[(int)(random()*length(tab,1))][(int)(random()*length(tab,2))]=operande1 * operande2;
 	return tab;
     }
 
@@ -100,20 +129,58 @@ class JeuDeCalculMental extends Program {
 	return res;
     }
     
-    //Test la fonction bonneReponse.
-    void testBonneReponse(){
+    //Test la fonction bonneReponse pour les additions.
+    void testBonneReponseAdd(){
 	int[][] tab = new int[][]{
 	    {10,25,3},
 	    {42,5,76},
 	    {12,89,100}
 	};
-	assertEquals(true, bonneReponse(1,2,tab,50,26));
+	assertEquals(true, bonneReponseAdd(1,2,tab,50,26));
     }
        
-    //Verifie que l'entier selectionner dans le tableau soit le resultat des 2 operandes.
-    boolean bonneReponse(int l, int c, int[][] tab, int operande1, int operande2){
+    //Verifie que l'entier selectionner dans le tableau soit le resultat de l'addition des 2 operandes.
+    boolean bonneReponseAdd(int l, int c, int[][] tab, int operande1, int operande2){
 	boolean res=false;
 	if(tab[l][c]==operande1+operande2){
+	    res=true;
+	}
+	return res;
+    }
+
+    //Test la fonction bonneReponse pour les soustractions.
+    void testBonneReponseSou(){
+	int[][] tab = new int[][]{
+	    {10,25,3},
+	    {42,5,76},
+	    {12,89,100}
+	};
+	assertEquals(true, bonneReponseSou(1,1,tab,50,45));
+    }
+       
+    //Verifie que l'entier selectionner dans le tableau soit le resultat de la soustraction des 2 operandes.
+    boolean bonneReponseSou(int l, int c, int[][] tab, int operande1, int operande2){
+	boolean res=false;
+	if(tab[l][c]==operande1-operande2){
+	    res=true;
+	}
+	return res;
+    }
+
+    //Test la fonction bonneReponse pour les soustractions.
+    void testBonneReponseMul(){
+	int[][] tab = new int[][]{
+	    {10,2,3},
+	    {4,5,7},
+	    {6,9,1}
+	};
+	assertEquals(true, bonneReponseMul(0,0,tab,1,10));
+    }
+       
+    //Verifie que l'entier selectionner dans le tableau soit le resultat de la soustraction des 2 operandes.
+    boolean bonneReponseMul(int l, int c, int[][] tab, int operande1, int operande2){
+	boolean res=false;
+	if(tab[l][c]==operande1*operande2){
 	    res=true;
 	}
 	return res;
@@ -122,6 +189,7 @@ class JeuDeCalculMental extends Program {
     void algorithm(){
 	
 	int choix=0;
+	int choix2=0;
 	println("Bienvenue sur le jeu du Calcul Mental !");
 	println();
 	println("1.Jouer");
@@ -137,14 +205,19 @@ class JeuDeCalculMental extends Program {
 	    println("5.CM1/CM2");
 	    println();
 	    print("Quel est votre niveau ? : ");
-	    choix = readInt();
-	    if(choix == 4) {
-		println("Vous avez choisi CE1/CE2 Bonne chance !");
+	    choix2 = readInt();
+	    while(choix2 != 4 && choix2 != 5){
+		print("Choisissez une reponse valide : ");
+		choix2 = readInt();
+	    }
+	    if(choix2 == 4) {
+		println("Vous avez choisi CE1/CE2, bonne chance !");
+		long debut=getTime();
 		int note=0;
-		for (int tours=0; tours<=5; tours++) {
+		for (int tours=0; tours<=10; tours++) {
 		    int operande1=operande();
 		    int operande2=operande();
-		    int[][] plateau=initialiser(operande1, operande2);
+		    int[][] plateau=initialiserAdd(operande1, operande2);
 		    println(); //Saut d'une ligne.	
 		    println("Combien font: " + affichageAdd(operande1, operande2));
 		    println();
@@ -159,36 +232,39 @@ class JeuDeCalculMental extends Program {
 			println("Veuillez saisir un indice de colonne correct: ");
 			c=readInt();
 		    }
-		    if(bonneReponse(l, c, plateau, operande1, operande2)==true) {
+		    if(bonneReponseAdd(l, c, plateau, operande1, operande2)==true) {
 			println();
-			println("Bravo, tu as trouve le bon resultat :) ");
+			println("Bravo, vous avez trouve le bon resultat :) ");
 			note++;
 		    }
-		    else {
+		    else  {
 			println();
 			println("Dommage, ce n'est pas le non resultat :( ");
 		    }
 		}
+		long fin=getTime();
 		println();
-		println("Tu as obtenu la note de : " + (note) + "/10");
+		println("Vous avez obtenu la note de : " + (note) + "/10");
+		println("Vous avez mis " + ((fin-debut)/1000) + " secondes.");
+		println();
 		if(note==0){
 		    println("AH !!!!!!!!!!!!!!!");
 		}
 		else if(note>0 && note<5){
-		    println("");
+		    println("NEIN NEIN NEIN NEIN NEIN !!!!!!!! ");
 		}
 		else if(note==5){
-		    println("");
+		    println("Meh !");
 		}
 		else if(note>5 && note <10){
-		    println("");
+		    println("JUST DO IT !!!!! MAKE YOUR DREAM COME TRUE !!!!!");
 		}
 		else if(note==10){
-		    println("");
+		    println("Vous etes ingenieur informaticien");
 		}
 		println();
 	    }
-	    else if ( choix == 5) {
+	    else if ( choix2 == 5) {
 		println("Vous avez choisi CM1/CM2");
 	    }
 	    else if( choix == 2) {
