@@ -327,9 +327,114 @@ class JeuDeCalculMental extends Program {
 	    }
 	}
     }
+    
+//Convertie un fichier CSV en tableau.
+    String[][] tabCsvToString(CSVFile file){
+    	int NbCol = columnCount(file);
+        int NbLig = rowCount(file);
+        String[][] tab = new String[NbLig][NbCol];
+        for(int i = 0; i < length(tab,1); i++){
+            for(int j = 0; j < length(tab,2); j++){		
+                tab[i][j] = getCell(file,i,j);
+            }
+        }
+	return tab;
+    }
 
+    
+    //Affiche le tableau de score.
+    void afficher(String[][] tab){
+	for(int i = 0; i < length(tab,1); i++){
+            for(int j = 0; j < length(tab,2); j++){		
+		print(tab[i][j]+" | ");
+		
+            }
+        
+	print("\n");
+	println();
+	}
+    }
+    
+    //Ranger un tableau dans l'ordre croissant.
+    void ordreDecroissant(String[][] tab ){
+	boolean perm = true;
+	while(perm){
+	    perm=false;
+	    /*for(int i=2;i<length(tab,1);i++){
+	    	if(stringToInt(tab[i][1]) > stringToInt(tab[i-1][1]) ){
+		    permutation(tab,i);
+		    perm=true;
+		}
+	    }   */
+	}
+    }
+    
+    //Effectue une permutation
+    void permutation(String[][] tab,int i){
+	
+	String tmp1=tab[i][0];
+	String tmp2=tab[i][1];
+	tab[i][0]=tab[i-1][0];
+	tab[i][1]=tab[i-1][1];
+	tab[i-1][0]=tmp1;
+	tab[i-1][1]=tmp2;
+	
+    }
+
+    //Verifie que le nom soit juste ainsi que d'inscrire le score dans le tableau.
+    String[][] inscrireScore(int score, String[][] tab ){
+		String[][] tab2 = new String[length(tab,1)+1][length(tab,2)];
+		for(int i=0;i<length(tab,1);i++){
+			for(int j=0;j<length(tab,2);j++){
+				tab2[i][j]=tab[i][j];
+	    }
+	}
+	print("Ecrit ton nom (3 caractères maximum) :");
+	String nom = readString();
+	int nbAnormale=0;
+	if(length(nom)==0 || length(nom)>3){
+		nbAnormale++;
+
+	}
+	for(int i=0;i<length(nom);i++){
+	    if((int)(charAt(nom, i)) < 48 || (int)(charAt(nom,i)) > 57 &&  (int)(charAt(nom,i)) < 65 || (int)(charAt(nom,i)) > 90 && (int)(charAt(nom,i)) < 97 || (int)(charAt(nom,i)) >122 ){
+		nbAnormale++;
+	    }
+	}
+	if(nbAnormale !=0){
+	    while(nbAnormale !=0){
+	    	print("Inscrit ton nom (Seul les lettres en majuscules, miniscules et les chiffres sont autorisees ! Il faut obligatoirement note un nom ) : ");
+	    	nom = readString();
+	    	nbAnormale=0;
+			if(length(nom)==0){
+				nbAnormale++;
+			}
+		for(int i=0;i<length(nom);i++){    
+		    if((int)(charAt(nom, i)) < 48 || (int)(charAt(nom,i)) > 57 &&  (int)(charAt(nom,i)) < 65 || (int)(charAt(nom,i)) > 90 && (int)(charAt(nom,i)) < 97 || (int)(charAt(nom,i)) >122)      {
+			     nbAnormale++;
+		      }
+		  }		
+	   }
+	}
+	tab2[length(tab2,1)-1][0]= nom;
+	tab2[length(tab2,1)-1][1]= ""+score; 
+	return tab2;
+    }
+    
+    //Effectue une sauvegarde du csv.
+    void sauver(String[][] tab, String filename){
+	saveCSV(tab,filename);
+	println("Fichier CSV sauvegarder !");
+    }
+    
     void algorithm(){
-	menu();
+    	menu();
+    	CSVFile file = loadCSV("highScore.csv");
+    	String[][] tab = tabCsvToString(file);
+    	ordreDecroissant(tab);
+    	afficher(tab);
+    	sauver(tab,"highScore.csv");
+
     }
 }
 
