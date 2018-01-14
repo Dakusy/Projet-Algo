@@ -288,7 +288,7 @@ class JeuDeCalculMental extends Program {
 
     //Affiche le menu.
     void menu(){
-    	int choix=0;
+    int choix=0;
 	int choix2=0;
 	println("Bienvenue sur le jeu du Calcul Mental !");
 	println();

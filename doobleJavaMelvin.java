@@ -751,11 +751,7 @@ class doobleJavaMelvin extends Program{ // !!!! ---- il faut changer la ligne 36
 	ordreDecroissant(tab);
 	afficher(tab);
 	sauver(tab,"highScore.csv");
-	
-	AfficherLeaderBoard(tab);
-	
-	
-	
+		
     }
 }    
 
