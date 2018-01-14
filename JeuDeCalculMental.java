@@ -329,7 +329,7 @@ class JeuDeCalculMental extends Program {
     }
     
 //Convertie un fichier CSV en tableau.
-    String[][] tabCsvToString(CSVFile file){
+    /*String[][] tabCsvToString(CSVFile file){
     	int NbCol = columnCount(file);
         int NbLig = rowCount(file);
         String[][] tab = new String[NbLig][NbCol];
@@ -339,11 +339,11 @@ class JeuDeCalculMental extends Program {
             }
         }
 	return tab;
-    }
+    }/*
 
     
     //Affiche le tableau de score.
-    void afficher(String[][] tab){
+    /*void afficher(String[][] tab){
 	for(int i = 0; i < length(tab,1); i++){
             for(int j = 0; j < length(tab,2); j++){		
 		print(tab[i][j]+" | ");
@@ -353,24 +353,24 @@ class JeuDeCalculMental extends Program {
 	print("\n");
 	println();
 	}
-    }
+    }/*
     
     //Ranger un tableau dans l'ordre croissant.
-    void ordreDecroissant(String[][] tab ){
+    /*void ordreDecroissant(String[][] tab ){
 	boolean perm = true;
 	while(perm){
 	    perm=false;
-	    /*for(int i=2;i<length(tab,1);i++){
+	    for(int i=2;i<length(tab,1);i++){
 	    	if(stringToInt(tab[i][1]) > stringToInt(tab[i-1][1]) ){
 		    permutation(tab,i);
 		    perm=true;
 		}
-	    }   */
+	    }   
 	}
-    }
+    }*/
     
     //Effectue une permutation
-    void permutation(String[][] tab,int i){
+  /*  void permutation(String[][] tab,int i){
 	
 	String tmp1=tab[i][0];
 	String tmp2=tab[i][1];
@@ -379,10 +379,10 @@ class JeuDeCalculMental extends Program {
 	tab[i-1][0]=tmp1;
 	tab[i-1][1]=tmp2;
 	
-    }
+    }*/
 
     //Verifie que le nom soit juste ainsi que d'inscrire le score dans le tableau.
-    String[][] inscrireScore(int score, String[][] tab ){
+   /* String[][] inscrireScore(int score, String[][] tab ){
 		String[][] tab2 = new String[length(tab,1)+1][length(tab,2)];
 		for(int i=0;i<length(tab,1);i++){
 			for(int j=0;j<length(tab,2);j++){
@@ -417,23 +417,23 @@ class JeuDeCalculMental extends Program {
 	   }
 	}
 	tab2[length(tab2,1)-1][0]= nom;
-	tab2[length(tab2,1)-1][1]= ""+score; 
+	tab2[length(tab2,1)-1][1]= "" + score; 
 	return tab2;
-    }
+    }*/
     
     //Effectue une sauvegarde du csv.
-    void sauver(String[][] tab, String filename){
+    /*void sauver(String[][] tab, String filename){
 	saveCSV(tab,filename);
 	println("Fichier CSV sauvegarder !");
-    }
+    }*/
     
     void algorithm(){
     	menu();
-    	CSVFile file = loadCSV("highScore.csv");
+    	/*CSVFile file = loadCSV("highScore.csv");
     	String[][] tab = tabCsvToString(file);
     	ordreDecroissant(tab);
     	afficher(tab);
-    	sauver(tab,"highScore.csv");
+    	sauver(tab,"highScore.csv");*/
 
     }
 }
