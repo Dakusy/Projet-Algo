@@ -117,13 +117,13 @@ class JeuDeCalculMental extends Program {
 	};
 	assertTrue(saisie(1,2,tab));
 	assertTrue(saisie(2,0,tab));
-	assertFalse(saisie(3,4,tab));
+	assertFalse(saisie(3,3,tab));
     }
    
     //Verifie que la saisie des coordonnees soit dans le tableau.
     boolean saisie(int a, int b, int[][] tab){
 	boolean res=false;
-	if(a<=length(tab,1) && b<=length(tab,2)){
+	if(a<=length(tab,1)-1 && b<=length(tab,2)-1){
 	    res=true;
 	}
 	return res;
