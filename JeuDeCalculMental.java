@@ -208,35 +208,69 @@ class JeuDeCalculMental extends Program {
 
     //Niveau des CE1 et CE2.
     void niveauCe(){
-	long debut=getTime();
-	int note=0;
-	for (int tours=0; tours<=10; tours++) {
-	    int operande1=operande();
-	    int operande2=operande();
-	    int[][] plateau=initialiserAdd(operande1, operande2);
-	    println(); //Saut d'une ligne.	
-	    println("Combien font: " + affichageAdd(operande1, operande2));
-	    println();
-	    println(affichageTableau(plateau));
-	    println("Veuillez saisir un indice de ligne: ");
-	    int l=readInt();
-	    println("Veuillez saisir un indice de colonne: ");
-	    int c=readInt();
-	    while(saisie(l,c,plateau)!=true){
-		println("Veuillez saisir un indice de ligne correct: ");
-		l=readInt();
-		println("Veuillez saisir un indice de colonne correct: ");
-		c=readInt();
-	    }
-	    if(bonneReponseAdd(l, c, plateau, operande1, operande2)==true) {
-		println();
-		println("Bravo, vous avez trouve le bon resultat :) ");
-		note++;
-	    }
-	    else  {
-		println();
-		println("Dommage, ce n'est pas le non resultat :( ");
-	    }
+    	long debut=getTime();
+    	int note=0;
+    	for (int tours=0; tours<=10; tours++) {
+    		if(tours<5) {
+			    int operande1=operande();
+			    int operande2=operande();
+			    int[][] plateau=initialiserAdd(operande1, operande2);
+			    println(); //Saut d'une ligne.	
+			    println("Combien font: " + affichageAdd(operande1, operande2));
+			    println();
+			    println(affichageTableau(plateau));
+			    println("Veuillez saisir un indice de ligne: ");
+			    int l=readInt();
+			    println("Veuillez saisir un indice de colonne: ");
+			    int c=readInt();
+			    while(saisie(l,c,plateau)!=true){
+				println("Veuillez saisir un indice de ligne correct: ");
+				l=readInt();
+				println("Veuillez saisir un indice de colonne correct: ");
+				c=readInt();
+		    }
+		    if(bonneReponseAdd(l, c, plateau, operande1, operande2)==true) {
+				println();
+				println("Bravo, vous avez trouve le bon resultat :) ");
+				note++;
+		    }
+		    else  {
+				println();
+				println("Dommage, ce n'est pas le non resultat :( ");
+		    }
+		}
+		else {
+			int operande1=operande();
+		    int operande2=operande();
+			while (operande1<operande2){
+				operande1=operande();
+			    operande2=operande();
+			    }
+			int[][] plateau=initialiserSou(operande1, operande2);
+			println(); //Saut d'une ligne.	
+			println("Combien font: " + affichageSou(operande1, operande2));
+			println();
+			println(affichageTableau(plateau));
+			println("Veuillez saisir un indice de ligne: ");
+			int l=readInt();
+			println("Veuillez saisir un indice de colonne: ");
+			int c=readInt();
+			while(saisie(l,c,plateau)!=true){
+				println("Veuillez saisir un indice de ligne correct: ");
+				l=readInt();
+				println("Veuillez saisir un indice de colonne correct: ");
+				c=readInt();
+			}
+			if(bonneReponseSou(l, c, plateau, operande1, operande2)==true) {
+				println();
+				println("Bravo, vous avez trouve le bon resultat :) ");
+				note++;
+			}
+			else  {
+				println();
+				println("Dommage, ce n'est pas le non resultat :( ");
+		    }
+		}	
 	}
 	long fin=getTime();
 	println();
@@ -329,7 +363,7 @@ class JeuDeCalculMental extends Program {
     }
     
 //Convertie un fichier CSV en tableau.
-    /*String[][] tabCsvToString(CSVFile file){
+   /* String[][] tabCsvToString(CSVFile file){
     	int NbCol = columnCount(file);
         int NbLig = rowCount(file);
         String[][] tab = new String[NbLig][NbCol];
@@ -339,24 +373,22 @@ class JeuDeCalculMental extends Program {
             }
         }
 	return tab;
-    }/*
+    }*/
 
     
     //Affiche le tableau de score.
     /*void afficher(String[][] tab){
 	for(int i = 0; i < length(tab,1); i++){
             for(int j = 0; j < length(tab,2); j++){		
-		print(tab[i][j]+" | ");
-		
+            	print(tab[i][j]+" | ");
             }
-        
-	print("\n");
-	println();
-	}
-    }/*
+            print("\n");
+            println();
+		}
+    }*/
     
     //Ranger un tableau dans l'ordre croissant.
-    /*void ordreDecroissant(String[][] tab ){
+   /* void ordreDecroissant(String[][] tab ){
 	boolean perm = true;
 	while(perm){
 	    perm=false;
@@ -370,7 +402,7 @@ class JeuDeCalculMental extends Program {
     }*/
     
     //Effectue une permutation
-  /*  void permutation(String[][] tab,int i){
+   /* void permutation(String[][] tab,int i){
 	
 	String tmp1=tab[i][0];
 	String tmp2=tab[i][1];
@@ -389,7 +421,7 @@ class JeuDeCalculMental extends Program {
 				tab2[i][j]=tab[i][j];
 	    }
 	}
-	print("Ecrit ton nom (3 caractères maximum) :");
+	print("Ecrivez votre nom (3 caractères maximum) :");
 	String nom = readString();
 	int nbAnormale=0;
 	if(length(nom)==0 || length(nom)>3){
@@ -403,10 +435,10 @@ class JeuDeCalculMental extends Program {
 	}
 	if(nbAnormale !=0){
 	    while(nbAnormale !=0){
-	    	print("Inscrit ton nom (Seul les lettres en majuscules, miniscules et les chiffres sont autorisees ! Il faut obligatoirement note un nom ) : ");
+	    	print("Inscrivez votre nom (Seul les lettres en majuscules, miniscules et les chiffres sont autorisees ! Il faut obligatoirement mettre un nom ) : ");
 	    	nom = readString();
 	    	nbAnormale=0;
-			if(length(nom)==0){
+			if(length(nom)==0 || length(nom)>3){
 				nbAnormale++;
 			}
 		for(int i=0;i<length(nom);i++){    
