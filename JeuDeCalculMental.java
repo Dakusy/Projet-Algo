@@ -101,11 +101,11 @@ class JeuDeCalculMental extends Program {
 	String res="";
 	for(int i=0; i<length(tab,1); i++){
 	    for(int j=0; j<length(tab,2); j++){
-		res+=" " + tab[i][j];
+	    	res+=" " + tab[i][j];
 	    }
 	    res+="\n";
-	}
-	return res;
+		}
+		return res;
     }
     
     //Test la fonction saisie
@@ -459,14 +459,14 @@ class JeuDeCalculMental extends Program {
 	println("Fichier CSV sauvegarder !");
     }*/
     
-    void algorithm(){
+    /*void algorithm(){
     	menu();
-    	/*CSVFile file = loadCSV("highScore.csv");
+    	CSVFile file = loadCSV("highScore.csv");
     	String[][] tab = tabCsvToString(file);
     	ordreDecroissant(tab);
     	afficher(tab);
-    	sauver(tab,"highScore.csv");*/
+    	sauver(tab,"highScore.csv");
 
-    }
+    }*/
 }
 
