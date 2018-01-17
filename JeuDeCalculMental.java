@@ -358,15 +358,20 @@ class JeuDeCalculMental extends Program {
 
     //Affiche le menu.
     void menu(){
-	int choix=0;
-	int choix2=0;
+	String choixS="";
+	String choixS2="";
 	println("Bienvenue sur le jeu du Calcul Mental !");
 	println();
 	println("1.Jouer");
 	println("2.Quitter");
 	println();
 	print("Choisissez votre option : ");
-	choix = readInt();
+	choixS = readString();
+	while(isDigit(choixS)!=true || entierEnChaineVersEntierEnInt(choixS) != 1 && entierEnChaineVersEntierEnInt(choixS) != 2) {
+		print("Choisissez une option valide: ");
+		choixS = readString();
+	}
+	int choix=entierEnChaineVersEntierEnInt(choixS);
 	if(choix == 1) {
 	    println("Vous avez choisi jouer !");
 	    println();
@@ -374,12 +379,13 @@ class JeuDeCalculMental extends Program {
 	    println("4.CM1/CM2");
 	    println();
 	    print("Quel est votre niveau ? : ");
-	    choix2 = readInt();
-	    while(choix2 != 3 && choix2 != 4){
-		print("Choisissez une reponse valide : ");
-		choix2 = readInt();
-	    }
-	    if(choix2 == 3) {
+		choixS2 = readString();
+		while(isDigit(choixS2)!=true || entierEnChaineVersEntierEnInt(choixS2) != 3 && entierEnChaineVersEntierEnInt(choixS2) != 4) {
+			print("Choisissez une reponse valide: ");
+			choixS2 = readString();
+		}
+		int choix2=entierEnChaineVersEntierEnInt(choixS2);
+		if(choix2 == 3) {
 		println("Vous avez choisi CE1/CE2, bonne chance !");
 		niveauCe();
 	    }
