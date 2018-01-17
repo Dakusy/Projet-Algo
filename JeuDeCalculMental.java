@@ -185,22 +185,28 @@ class JeuDeCalculMental extends Program {
     void commentaire(int note){
 	if(note==0){
 		playSound("AH.mp3");
+		delay(1000);
 	    println("AH !!!!!!!!!!!!!!!");
 	}
 	else if(note>0 && note<5){
 		playSound("Nein.mp3");
+		delay(31000);
 	    println("NEIN NEIN NEIN NEIN NEIN !!!!!!!! ");
 	}
 	else if(note==5){
-	    println("Meh !");
+		playSound("BRUH.mp3");
+		delay(1000);
+	    println("BRUHH !!!!");
 	}
 	else if(note>5 && note <10){
 		playSound("DoIt.mp3");
+		delay(4000);
 	    println("JUST DO IT !!!!! MAKE YOUR DREAM COME TRUE !!!!!");
 		
 	}
 	else if(note==10){
 		playSound("ingenieur.mp3");
+		delay(7000);
 	    println("Vous etes ingenieur informaticien");
 	}
 	println();
@@ -309,8 +315,7 @@ class JeuDeCalculMental extends Program {
 		}
 	    }	
 	}
-    //stop("Metroid.mp3");	
-	long fin=getTime();
+    long fin=getTime();
 	println();
 	println("Vous avez obtenu la note de : " + (note) + "/10");
 	println("Vous avez mis " + ((fin-debut)/1000) + " secondes.");
@@ -355,7 +360,6 @@ class JeuDeCalculMental extends Program {
 		println("Dommage, ce n'est pas le bon resultat :( ");
 	    }
 	}
-	//stop("Metroid.mp3");
 	long fin=getTime();
 	println();
 	println("Vous avez obtenu la note de : " + (note) + "/10");
