@@ -370,8 +370,8 @@ class JeuDeCalculMental extends Program {
 	if(choix == 1) {
 	    println("Vous avez choisi jouer !");
 	    println();
-	    println("4.CE1/CE2");
-	    println("5.CM1/CM2");
+	    println("3.CE1/CE2");
+	    println("4.CM1/CM2");
 	    println();
 	    print("Quel est votre niveau ? : ");
 	    choix2 = readInt();
