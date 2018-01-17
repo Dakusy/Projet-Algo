@@ -1,8 +1,3 @@
-import extensions.CSVFile;
-import extensions.Image;
-import extensions.RGBColor;
-
-
 class JeuDeCalculMental extends Program {
     
     //Choisit les differents operandes.
@@ -104,8 +99,8 @@ class JeuDeCalculMental extends Program {
 	    	res+=" " + tab[i][j];
 	    }
 	    res+="\n";
-		}
-		return res;
+	}
+	return res;
     }
     
     //Test la fonction saisie
@@ -115,15 +110,15 @@ class JeuDeCalculMental extends Program {
 	    {42,5,76},
 	    {12,89,100}
 	};
-	assertTrue(saisie(1,2,tab));
-	assertTrue(saisie(2,0,tab));
-	assertFalse(saisie(3,3,tab));
+	assertTrue(saisie(1,tab));
+	assertTrue(saisie(2,tab));
+	assertFalse(saisie(3,tab));
     }
    
-    //Verifie que la saisie des coordonnees soit dans le tableau.
-    boolean saisie(int a, int b, int[][] tab){
+    //Verifie que la saisie d'une coordonnee soit dans le tableau.
+    boolean saisie(int a, int[][] tab){
 	boolean res=false;
-	if(a<=length(tab,1)-1 && b<=length(tab,2)-1){
+	if(a<=length(tab,1)-1){
 	    res=true;
 	}
 	return res;
@@ -205,72 +200,109 @@ class JeuDeCalculMental extends Program {
 	}
 	println();
     }
+        
+    //Verifie que la chaine de caractere soit un chiffre
+    boolean isDigit(String res){
+    	boolean digit=false;
+    	char[]tab=new char []{'0','1','2','3','4','5','6','7','8','9'};
+    	if(length(res)==1){
+    		for(int i=0;i<length(res);i++){
+    			int j=0;
+    			while(j<length(tab) && !digit){
+    			    if(charAt(res,i)==tab[j]){
+    				    digit=true;
+    				}
+    			    else {
+    				j++;
+    			    }
+    			}
+    		}
+    	}
+    	else{
+    		digit=false;
+    	}
+    	return digit;
+    }
+     
+    //Convertit le nombre exprime sous la forme d'une chaine de caractere en un entier.
+    int entierEnChaineVersEntierEnInt(String nombre) {
+        return stringToInt(nombre);
+    }
 
+    
     //Niveau des CE1 et CE2.
     void niveauCe(){
     	long debut=getTime();
     	int note=0;
-    	for (int tours=0; tours<=10; tours++) {
-    		if(tours<5) {
-			    int operande1=operande();
-			    int operande2=operande();
-			    int[][] plateau=initialiserAdd(operande1, operande2);
-			    println(); //Saut d'une ligne.	
-			    println("Combien font: " + affichageAdd(operande1, operande2));
-			    println();
-			    println(affichageTableau(plateau));
-			    println("Veuillez saisir un indice de ligne: ");
-			    int l=readInt();
-			    println("Veuillez saisir un indice de colonne: ");
-			    int c=readInt();
-			    while(saisie(l,c,plateau)!=true){
-				println("Veuillez saisir un indice de ligne correct: ");
-				l=readInt();
-				println("Veuillez saisir un indice de colonne correct: ");
-				c=readInt();
-		    }
-		    if(bonneReponseAdd(l, c, plateau, operande1, operande2)==true) {
-				println();
-				println("Bravo, vous avez trouve le bon resultat :) ");
-				note++;
-		    }
-		    else  {
-				println();
-				println("Dommage, ce n'est pas le non resultat :( ");
-		    }
+    	for (int tours=0; tours<10; tours++) {
+	    if(tours<5) {
+		int operande1=operande();
+		int operande2=operande();
+		int[][] plateau=initialiserAdd(operande1, operande2);
+		println(); //Saut d'une ligne.	
+		println("Combien font: " + affichageAdd(operande1, operande2));
+		println();
+		println(affichageTableau(plateau));
+		println("Veuillez saisir un indice de ligne: ");
+		String ligne=readString();
+		while(isDigit(ligne)!=true || saisie(entierEnChaineVersEntierEnInt(ligne), plateau)!=true){
+		    println("Veuillez saisir un indice de ligne correct: ");
+		    ligne=readString();
 		}
-		else {
-			int operande1=operande();
-		    int operande2=operande();
-			while (operande1<operande2){
-				operande1=operande();
-			    operande2=operande();
-			    }
-			int[][] plateau=initialiserSou(operande1, operande2);
-			println(); //Saut d'une ligne.	
-			println("Combien font: " + affichageSou(operande1, operande2));
-			println();
-			println(affichageTableau(plateau));
-			println("Veuillez saisir un indice de ligne: ");
-			int l=readInt();
-			println("Veuillez saisir un indice de colonne: ");
-			int c=readInt();
-			while(saisie(l,c,plateau)!=true){
-				println("Veuillez saisir un indice de ligne correct: ");
-				l=readInt();
-				println("Veuillez saisir un indice de colonne correct: ");
-				c=readInt();
-			}
-			if(bonneReponseSou(l, c, plateau, operande1, operande2)==true) {
-				println();
-				println("Bravo, vous avez trouve le bon resultat :) ");
-				note++;
-			}
-			else  {
-				println();
-				println("Dommage, ce n'est pas le non resultat :( ");
-		    }
-		}	
+		println("Veuillez saisir un indice de colonne: ");
+		String colonne=readString();
+		while(isDigit(colonne)!=true || saisie(entierEnChaineVersEntierEnInt(colonne), plateau)!=true){
+			println("Veuillez saisir un indice de colonne correct: ");
+		    colonne=readString();
+		}
+		int l=entierEnChaineVersEntierEnInt(ligne);
+		int c=entierEnChaineVersEntierEnInt(colonne);
+		if(bonneReponseAdd(l, c, plateau, operande1, operande2)==true) {
+		    println();
+		    println("Bravo, vous avez trouve le bon resultat :) ");
+		    note++;
+		}
+		else  {
+		    println();
+		    println("Dommage, ce n'est pas le non resultat :( ");
+		}
+	    }
+	    else {
+		int operande1=operande();
+		int operande2=operande();
+		while (operande1<operande2){
+		    operande1=operande();
+		    operande2=operande();
+		}
+		int[][] plateau=initialiserSou(operande1, operande2);
+		println(); //Saut d'une ligne.	
+		println("Combien font: " + affichageSou(operande1, operande2));
+		println();
+		println(affichageTableau(plateau));
+		println("Veuillez saisir un indice de ligne: ");
+		String ligne=readString();
+		while(isDigit(ligne)!=true || saisie(entierEnChaineVersEntierEnInt(ligne), plateau)!=true){
+		    println("Veuillez saisir un indice de ligne correct: ");
+		    ligne=readString();
+		}
+		println("Veuillez saisir un indice de colonne: ");
+		String colonne=readString();
+		while(isDigit(colonne)!=true || saisie(entierEnChaineVersEntierEnInt(colonne), plateau)!=true){
+			println("Veuillez saisir un indice de colonne correct: ");
+		    colonne=readString();
+		}
+		int l=entierEnChaineVersEntierEnInt(ligne);
+		int c=entierEnChaineVersEntierEnInt(colonne);
+		if(bonneReponseSou(l, c, plateau, operande1, operande2)==true) {
+		    println();
+		    println("Bravo, vous avez trouve le bon resultat :) ");
+		    note++;
+		}
+		else  {
+		    println();
+		    println("Dommage, ce n'est pas le non resultat :( ");
+		}
+	    }	
 	}
 	long fin=getTime();
 	println();
@@ -284,7 +316,7 @@ class JeuDeCalculMental extends Program {
     void niveauCm(){
 	long debut=getTime();
 	int note=0;
-	for (int tours=0; tours<=10; tours++) {
+	for (int tours=0; tours<10; tours++) {
 	    int operande1=operandeMul();
 	    int operande2=operandeMul();
 	    int[][] plateau=initialiserMul(operande1, operande2);
@@ -292,16 +324,20 @@ class JeuDeCalculMental extends Program {
 	    println("Combien font: " + affichageMul(operande1, operande2));
 	    println();
 	    println(affichageTableau(plateau));
-	    println("Veuillez saisir un indice de ligne: ");
-	    int l=readInt();
-	    println("Veuillez saisir un indice de colonne: ");
-	    int c=readInt();
-	    while(saisie(l,c,plateau)!=true){
-		println("Veuillez saisir un indice de ligne correct: ");
-		l=readInt();
-		println("Veuillez saisir un indice de colonne correct: ");
-		c=readInt();
-	    }
+		println("Veuillez saisir un indice de ligne: ");
+		String ligne=readString();
+		while(isDigit(ligne)!=true || saisie(entierEnChaineVersEntierEnInt(ligne), plateau)!=true){
+		    println("Veuillez saisir un indice de ligne correct: ");
+		    ligne=readString();
+		}
+		println("Veuillez saisir un indice de colonne: ");
+		String colonne=readString();
+		while(isDigit(colonne)!=true || saisie(entierEnChaineVersEntierEnInt(colonne), plateau)!=true){
+			println("Veuillez saisir un indice de colonne correct: ");
+		    colonne=readString();
+		}
+		int l=entierEnChaineVersEntierEnInt(ligne);
+		int c=entierEnChaineVersEntierEnInt(colonne);
 	    if(bonneReponseMul(l, c, plateau, operande1, operande2)==true) {
 		println();
 		println("Bravo, vous avez trouve le bon resultat :) ");
@@ -322,13 +358,12 @@ class JeuDeCalculMental extends Program {
 
     //Affiche le menu.
     void menu(){
-    int choix=0;
+	int choix=0;
 	int choix2=0;
 	println("Bienvenue sur le jeu du Calcul Mental !");
 	println();
 	println("1.Jouer");
-	println("2.Score");
-	println("3.Quitter");
+	println("2.Quitter");
 	println();
 	print("Choisissez votre option : ");
 	choix = readInt();
@@ -340,133 +375,30 @@ class JeuDeCalculMental extends Program {
 	    println();
 	    print("Quel est votre niveau ? : ");
 	    choix2 = readInt();
-	    while(choix2 != 4 && choix2 != 5){
+	    while(choix2 != 3 && choix2 != 4){
 		print("Choisissez une reponse valide : ");
 		choix2 = readInt();
 	    }
-	    if(choix2 == 4) {
+	    if(choix2 == 3) {
 		println("Vous avez choisi CE1/CE2, bonne chance !");
 		niveauCe();
 	    }
-	    else if ( choix2 == 5) {
+	    else if ( choix2 == 4) {
 		println("Vous avez choisi CM1/CM2, bonne chance !");
 		niveauCm();
 	    }
-	    else if( choix == 2) {
-		println("Vous avez choisi score !");
-	    }
-	    else if( choix == 3) {
-		println("Vous avez choisi quitter le jeu !");
-		return;	
-	    }
 	}
+	else if(choix == 2) {
+	    println("Vous avez choisi quitter le jeu !");
+	    return;	
+		}		
     }
-    
-//Convertie un fichier CSV en tableau.
-   /* String[][] tabCsvToString(CSVFile file){
-    	int NbCol = columnCount(file);
-        int NbLig = rowCount(file);
-        String[][] tab = new String[NbLig][NbCol];
-        for(int i = 0; i < length(tab,1); i++){
-            for(int j = 0; j < length(tab,2); j++){		
-                tab[i][j] = getCell(file,i,j);
-            }
-        }
-	return tab;
-    }*/
 
     
-    //Affiche le tableau de score.
-    /*void afficher(String[][] tab){
-	for(int i = 0; i < length(tab,1); i++){
-            for(int j = 0; j < length(tab,2); j++){		
-            	print(tab[i][j]+" | ");
-            }
-            print("\n");
-            println();
-		}
-    }*/
-    
-    //Ranger un tableau dans l'ordre croissant.
-   /* void ordreDecroissant(String[][] tab ){
-	boolean perm = true;
-	while(perm){
-	    perm=false;
-	    for(int i=2;i<length(tab,1);i++){
-	    	if(stringToInt(tab[i][1]) > stringToInt(tab[i-1][1]) ){
-		    permutation(tab,i);
-		    perm=true;
-		}
-	    }   
-	}
-    }*/
-    
-    //Effectue une permutation
-   /* void permutation(String[][] tab,int i){
-	
-	String tmp1=tab[i][0];
-	String tmp2=tab[i][1];
-	tab[i][0]=tab[i-1][0];
-	tab[i][1]=tab[i-1][1];
-	tab[i-1][0]=tmp1;
-	tab[i-1][1]=tmp2;
-	
-    }*/
 
-    //Verifie que le nom soit juste ainsi que d'inscrire le score dans le tableau.
-   /* String[][] inscrireScore(int score, String[][] tab ){
-		String[][] tab2 = new String[length(tab,1)+1][length(tab,2)];
-		for(int i=0;i<length(tab,1);i++){
-			for(int j=0;j<length(tab,2);j++){
-				tab2[i][j]=tab[i][j];
-	    }
-	}
-	print("Ecrivez votre nom (3 caractères maximum) :");
-	String nom = readString();
-	int nbAnormale=0;
-	if(length(nom)==0 || length(nom)>3){
-		nbAnormale++;
-
-	}
-	for(int i=0;i<length(nom);i++){
-	    if((int)(charAt(nom, i)) < 48 || (int)(charAt(nom,i)) > 57 &&  (int)(charAt(nom,i)) < 65 || (int)(charAt(nom,i)) > 90 && (int)(charAt(nom,i)) < 97 || (int)(charAt(nom,i)) >122 ){
-		nbAnormale++;
-	    }
-	}
-	if(nbAnormale !=0){
-	    while(nbAnormale !=0){
-	    	print("Inscrivez votre nom (Seul les lettres en majuscules, miniscules et les chiffres sont autorisees ! Il faut obligatoirement mettre un nom ) : ");
-	    	nom = readString();
-	    	nbAnormale=0;
-			if(length(nom)==0 || length(nom)>3){
-				nbAnormale++;
-			}
-		for(int i=0;i<length(nom);i++){    
-		    if((int)(charAt(nom, i)) < 48 || (int)(charAt(nom,i)) > 57 &&  (int)(charAt(nom,i)) < 65 || (int)(charAt(nom,i)) > 90 && (int)(charAt(nom,i)) < 97 || (int)(charAt(nom,i)) >122)      {
-			     nbAnormale++;
-		      }
-		  }		
-	   }
-	}
-	tab2[length(tab2,1)-1][0]= nom;
-	tab2[length(tab2,1)-1][1]= "" + score; 
-	return tab2;
-    }*/
     
-    //Effectue une sauvegarde du csv.
-    /*void sauver(String[][] tab, String filename){
-	saveCSV(tab,filename);
-	println("Fichier CSV sauvegarder !");
-    }*/
-    
-    /*void algorithm(){
-    	menu();
-    	CSVFile file = loadCSV("highScore.csv");
-    	String[][] tab = tabCsvToString(file);
-    	ordreDecroissant(tab);
-    	afficher(tab);
-    	sauver(tab,"highScore.csv");
-
-    }*/
+    void algorithm(){
+	menu();
+    }
 }
 
