@@ -184,23 +184,24 @@ class JeuDeCalculMental extends Program {
     //Affiche un commentaire en fonction de la note ainsi que de la musique.
     void commentaire(int note){
 	if(note==0){
-	    println("AH !!!!!!!!!!!!!!!");
 		playSound("AH.mp3");
+	    println("AH !!!!!!!!!!!!!!!");
 	}
 	else if(note>0 && note<5){
-	    println("NEIN NEIN NEIN NEIN NEIN !!!!!!!! ");
 		playSound("Nein.mp3");
+	    println("NEIN NEIN NEIN NEIN NEIN !!!!!!!! ");
 	}
 	else if(note==5){
 	    println("Meh !");
 	}
 	else if(note>5 && note <10){
+		playSound("DoIt.mp3");
 	    println("JUST DO IT !!!!! MAKE YOUR DREAM COME TRUE !!!!!");
-		playSound("DoIt.mp3)");
+		
 	}
 	else if(note==10){
-	    println("Vous etes ingenieur informaticien");
 		playSound("ingenieur.mp3");
+	    println("Vous etes ingenieur informaticien");
 	}
 	println();
     }
@@ -232,13 +233,12 @@ class JeuDeCalculMental extends Program {
     int entierEnChaineVersEntierEnInt(String nombre) {
         return stringToInt(nombre);
     }
-
     
     //Niveau des CE1 et CE2.
     void niveauCe(){
     	long debut=getTime();
     	int note=0;
-    	playSound("Metroid.mp3");
+    	//playSound("Metroid.mp3");
     	for (int tours=0; tours<10; tours++) {
 	    if(tours<5) {
 		int operande1=operande();
@@ -309,7 +309,7 @@ class JeuDeCalculMental extends Program {
 		}
 	    }	
 	}
-    stopSound("Metroid.mp3");	
+    //stop("Metroid.mp3");	
 	long fin=getTime();
 	println();
 	println("Vous avez obtenu la note de : " + (note) + "/10");
@@ -355,7 +355,7 @@ class JeuDeCalculMental extends Program {
 		println("Dommage, ce n'est pas le bon resultat :( ");
 	    }
 	}
-	stopSound("Metroid.mp3");	
+	//stop("Metroid.mp3");
 	long fin=getTime();
 	println();
 	println("Vous avez obtenu la note de : " + (note) + "/10");
