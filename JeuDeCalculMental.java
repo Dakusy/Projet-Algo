@@ -309,7 +309,7 @@ class JeuDeCalculMental extends Program {
 		}
 	    }	
 	}
-    stop(Sound,"Metroid.mp3");	
+    stopSound("Metroid.mp3");	
 	long fin=getTime();
 	println();
 	println("Vous avez obtenu la note de : " + (note) + "/10");
@@ -355,7 +355,7 @@ class JeuDeCalculMental extends Program {
 		println("Dommage, ce n'est pas le bon resultat :( ");
 	    }
 	}
-	stop(Sound "Metroid.mp3");	
+	stopSound("Metroid.mp3");	
 	long fin=getTime();
 	println();
 	println("Vous avez obtenu la note de : " + (note) + "/10");
