@@ -190,7 +190,7 @@ class JeuDeCalculMental extends Program {
 	}
 	else if(note>0 && note<5){
 		playSound("./ressources/Nein.mp3");
-		delay(31000);
+		delay(3000);
 	    println("NEIN NEIN NEIN NEIN NEIN !!!!!!!! ");
 	}
 	else if(note==5){
