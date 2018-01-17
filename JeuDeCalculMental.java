@@ -244,9 +244,8 @@ class JeuDeCalculMental extends Program {
     void niveauCe(){
     	long debut=getTime();
     	int note=0;
-    	//playSound("Metroid.mp3");
     	for (int tours=0; tours<10; tours++) {
-	    if(tours<5) {
+    	if(tours<5) {
 		int operande1=operande();
 		int operande2=operande();
 		int[][] plateau=initialiserAdd(operande1, operande2);
@@ -323,11 +322,10 @@ class JeuDeCalculMental extends Program {
 	commentaire(note);
     }
 
-    //Niveau des CM1 et CM2.
+  	//Niveau des CM1 et CM2.
     void niveauCm(){
 	long debut=getTime();
 	int note=0;
-	playSound("Metroid.mp3");
 	for (int tours=0; tours<10; tours++) {
 	    int operande1=operandeMul();
 	    int operande2=operandeMul();
@@ -360,6 +358,7 @@ class JeuDeCalculMental extends Program {
 		println("Dommage, ce n'est pas le bon resultat :( ");
 	    }
 	}
+	
 	long fin=getTime();
 	println();
 	println("Vous avez obtenu la note de : " + (note) + "/10");
