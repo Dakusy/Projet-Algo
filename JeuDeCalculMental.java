@@ -184,28 +184,28 @@ class JeuDeCalculMental extends Program {
     //Affiche un commentaire en fonction de la note ainsi que de la musique.
     void commentaire(int note){
 	if(note==0){
-		playSound("AH.mp3");
+		playSound("./ressources/AH.mp3");
 		delay(1000);
 	    println("AH !!!!!!!!!!!!!!!");
 	}
 	else if(note>0 && note<5){
-		playSound("Nein.mp3");
+		playSound("./ressources/Nein.mp3");
 		delay(31000);
 	    println("NEIN NEIN NEIN NEIN NEIN !!!!!!!! ");
 	}
 	else if(note==5){
-		playSound("BRUH.mp3");
+		playSound("./ressources/BRUH.mp3");
 		delay(1000);
 	    println("BRUHH !!!!");
 	}
 	else if(note>5 && note <10){
-		playSound("DoIt.mp3");
+		playSound("./ressources/DoIt.mp3");
 		delay(4000);
 	    println("JUST DO IT !!!!! MAKE YOUR DREAM COME TRUE !!!!!");
 		
 	}
 	else if(note==10){
-		playSound("ingenieur.mp3");
+		playSound("ressources/ingenieur.mp3");
 		delay(7000);
 	    println("Vous etes ingenieur informaticien");
 	}
