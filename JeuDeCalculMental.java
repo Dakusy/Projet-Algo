@@ -84,7 +84,7 @@ class JeuDeCalculMental extends Program {
     //Test l'affichage du tableau d'entier.
     void testAffichageTableau(){
 	int[][] tab = new int[][]{
-	    {1,2,3},
+		{1,2,3},
 	    {4,5,6},
 	    {7,8,9}
 	};
@@ -242,7 +242,7 @@ class JeuDeCalculMental extends Program {
     
     //Niveau des CE1 et CE2.
     void niveauCe(){
-    	long debut=getTime();
+  	   	long debut=getTime();
     	int note=0;
     	for (int tours=0; tours<10; tours++) {
     	if(tours<5) {
